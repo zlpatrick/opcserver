@@ -1,0 +1,2 @@
+C:\Users\Patrick\Desktop\Raining\opc程序相关\OPCServerProject\OPCServerProject\obj\x86\Debug\OPCServerProject.Properties.Resources.resources
+C:\Users\Patrick\Desktop\Raining\opc程序相关\OPCServerProject\OPCServerProject\obj\x86\Debug\OPCServerProject.csproj.GenerateResource.Cache
