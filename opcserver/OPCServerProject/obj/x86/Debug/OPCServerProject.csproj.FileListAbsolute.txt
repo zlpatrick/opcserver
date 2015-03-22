@@ -1,2 +1,13 @@
 C:\Users\Patrick\Desktop\Raining\opc程序相关\OPCServerProject\OPCServerProject\obj\x86\Debug\OPCServerProject.Properties.Resources.resources
 C:\Users\Patrick\Desktop\Raining\opc程序相关\OPCServerProject\OPCServerProject\obj\x86\Debug\OPCServerProject.csproj.GenerateResource.Cache
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.Form1.resources
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.Properties.Resources.resources
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\bin\Debug\OPCServerProject.exe
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\bin\Debug\OPCServerProject.pdb
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.exe
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.pdb
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.OPCLabel.resources
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.AddLabel.resources

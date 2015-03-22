@@ -11,5 +11,9 @@ namespace OPCServerProject
         {
 
         }
+
+        public static void registerOPCServer()
+        { 
+        }
     }
 }
