@@ -66,6 +66,7 @@
       <DependentUpon>DBManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="DBUtil.cs" />
+    <Compile Include="LogUtil.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +82,7 @@
     <Compile Include="OPClib.cs" />
     <Compile Include="OPCServerUtil.cs" />
     <Compile Include="PacketData.cs" />
+    <Compile Include="PacketUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MonitorOPCServer.cs" />
