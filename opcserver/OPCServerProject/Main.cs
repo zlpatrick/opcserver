@@ -34,7 +34,7 @@ namespace OPCServerProject
                                         "My OPC Server",
                                         "My OPC Server",
                                         exepath);
-            OPClib.SetVendorInfo("MY Company.Com");
+            OPClib.SetVendorInfo("OPCServer.Com");
             OPClib.InitWTOPCsvr("{57E9743C-0678-419c-B28B-7508417DAC8C}", 1000);
 
             OPClib.EnableWriteNotification(WriteCallback, true);
@@ -67,6 +67,12 @@ namespace OPCServerProject
         {
             OPCLabel labelDialog = new OPCLabel();
             labelDialog.ShowDialog();
+        }
+
+        private void 数据库管理ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DBManagement dbmanagement = new DBManagement();
+            dbmanagement.ShowDialog();
         }
     }
 }

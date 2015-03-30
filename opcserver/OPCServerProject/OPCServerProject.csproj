@@ -47,11 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDBMapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDBMapping.Designer.cs">
+      <DependentUpon>AddDBMapping.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddLabel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AddLabel.Designer.cs">
       <DependentUpon>AddLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DBManagement.Designer.cs">
+      <DependentUpon>DBManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="DBUtil.cs" />
     <Compile Include="Main.cs">
@@ -78,8 +90,14 @@
     <Compile Include="SelectLabel.Designer.cs">
       <DependentUpon>SelectLabel.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddDBMapping.resx">
+      <DependentUpon>AddDBMapping.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddLabel.resx">
       <DependentUpon>AddLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBManagement.resx">
+      <DependentUpon>DBManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

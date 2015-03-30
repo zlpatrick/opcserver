@@ -64,6 +64,7 @@
             this.数据库管理ToolStripMenuItem.Name = "数据库管理ToolStripMenuItem";
             this.数据库管理ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.数据库管理ToolStripMenuItem.Text = "数据库管理";
+            this.数据库管理ToolStripMenuItem.Click += new System.EventHandler(this.数据库管理ToolStripMenuItem_Click);
             // 
             // oPC标签管理ToolStripMenuItem
             // 
@@ -114,7 +115,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "OPC数据采集";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

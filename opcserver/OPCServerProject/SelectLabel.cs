@@ -16,7 +16,7 @@ namespace OPCServerProject
         {
             get
             {
-                return this.comboBox1.SelectedValue.ToString();
+                return this.comboBox1.SelectedItem.ToString();
             }
             set
             {

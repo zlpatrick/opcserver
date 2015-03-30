@@ -12,7 +12,7 @@ namespace OPCServerProject
 {
     public partial class OPCLabel : Form
     {
-        List<string> labelContent = new List<string>();
+        Dictionary<string, string> labelContent = new Dictionary<string, string>();
         public OPCLabel()
         {
             InitializeComponent();
@@ -33,15 +33,18 @@ namespace OPCServerProject
                 {
                     if (labels[i].Equals(""))
                         continue;
-                    labelContent.Add(labels[i]);
+                    
                     string labelLine = labels[i];
                     string[] prop = labelLine.Split('=');
                     string equipment = prop[0];
                     string[] labelText = prop[1].Split(',');
-
+                    labelContent.Add(equipment,labels[i]);
                     TreeNode node = this.treeView1.Nodes.Add(equipment);
                     for (int j = 0; j < labelText.Length; j++)
-                        node.Nodes.Add(labelText[j]);
+                    {
+                        if (!labelText[j].Equals(""))
+                            node.Nodes.Add(labelText[j]);
+                    }
                 }
             }
         }
@@ -88,14 +91,68 @@ namespace OPCServerProject
             TreeNode selectedNode = this.treeView1.SelectedNode;
             if (result == DialogResult.OK)
             {
-               
-                selectedNode.Nodes.Add(select.labelName);
+                bool existed = false;
+                foreach (TreeNode sub in selectedNode.Nodes)
+                {
+                    if (sub.Text.Equals(select.labelName))
+                    {
+                        existed = true;
+                        break;
+                    }
+                }
+
+                if (!existed)
+                {
+                    selectedNode.Nodes.Add(select.labelName);
+                    string allValue = "";
+                    foreach (TreeNode subnode in selectedNode.Nodes)
+                    {
+                        allValue += subnode.Text + ",";
+                    }
+                    allValue = allValue.Substring(0, allValue.Length - 1);
+                    labelContent[selectedNode.Text] = selectedNode.Text + "=" + allValue;
+                    File.WriteAllLines("label.properties", labelContent.Values.ToArray());
+                }
+                else
+                {
+                    MessageBox.Show("此设备已经添加了您选择的标签");
+                }
             }
         }
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            TreeNode selectedNode = this.treeView1.SelectedNode;
+            if (selectedNode.Parent == null)
+            {
+                labelContent.Remove(selectedNode.Text);
+                selectedNode.Remove();
+            }
+            else
+            {
+                TreeNode parent = selectedNode.Parent;
+                selectedNode.Remove();
+                string allValue = "";
+                foreach (TreeNode subnode in parent.Nodes)
+                {
+                    allValue += subnode.Text+",";
+                }
+                allValue = allValue.Substring(0, allValue.Length - 1);
+                labelContent[parent.Text] = parent.Text + "="+ allValue;
+            }
+            File.WriteAllLines("label.properties", labelContent.Values.ToArray());
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            if (this.treeView1.SelectedNode != null && this.treeView1.SelectedNode.Parent != null)
+            {
+                sssToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                sssToolStripMenuItem.Enabled = true;
+            }
         }
     }
 }
