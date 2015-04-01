@@ -6,6 +6,7 @@ using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.IO;
 
 namespace OPCServerProject
 {
@@ -18,6 +19,7 @@ namespace OPCServerProject
         public Thread listeningThread;
         public Thread sendCommandThread;
         public Thread clearResourceThread;
+        public Dictionary<string, string> dbNameMapping = new Dictionary<string, string>();
 
         public Dictionary<DateTime, Socket> socketAll;
         public Dictionary<DateTime, Thread> threadAll;
@@ -33,8 +35,22 @@ namespace OPCServerProject
             return server;
         }
 
+        private void loadInfo()
+        {
+            if (File.Exists("dbmapping.properties"))
+            {
+                string[] mappings = File.ReadAllLines("dbmapping.properties");
+                for (int i = 0; i < mappings.Length; i++)
+                {
+                    string[] values = mappings[i].Split(',');
+                    dbNameMapping.Add(values[0], values[1]);
+                }
+            }
+        }
+
         public void startMonitor()
         {
+            loadInfo();
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
@@ -45,11 +61,11 @@ namespace OPCServerProject
                 listeningThread = new Thread(new ParameterizedThreadStart(startListeningThread));
                 listeningThread.Start(listener);
                 //发送线程
-                sendCommandThread = new Thread(new ThreadStart(sendCommandWorkThread));
-                sendCommandThread.Start();
+                //sendCommandThread = new Thread(new ThreadStart(sendCommandWorkThread));
+                //sendCommandThread.Start();
                 //清理线程
-                clearResourceThread = new Thread(new ThreadStart(clearWorkThread));
-                clearResourceThread.Start();
+               // clearResourceThread = new Thread(new ThreadStart(clearWorkThread));
+               // clearResourceThread.Start();
             }
             catch (Exception ex)
             {
@@ -143,7 +159,7 @@ namespace OPCServerProject
                                     {
                                         try
                                         {
-                                            //解析出ID号，从第6个字节至第18个字节
+                                            //解析从12开始的40个字节，作为data1的数据
                                             byte[] data1 = new byte[40];
                                             for (int i = 0; i < 40; i++)
                                             {
@@ -151,9 +167,9 @@ namespace OPCServerProject
                                             }
 
                                             PacketData data1Packet = PacketData.resolveData1(data1);
-                                           
+                                            
                                             //接收日志
-                                            LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
+                                           // LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
                                                                                  
                                         }
                                         catch (Exception ex)
@@ -180,18 +196,6 @@ namespace OPCServerProject
                     continue;
                 }
             }
-        }
-
-
-        private PacketData parseProtocol(string dataString)
-        {
-            PacketData packetData = null;
-            return packetData;
-        }
-
-        private void saveToDatabase(PacketData packetData)
-        {
-            OPCServerUtil.updateToOPCLabel(packetData);
         }
     }
 }

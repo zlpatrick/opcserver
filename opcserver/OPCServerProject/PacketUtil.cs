@@ -7,7 +7,7 @@ namespace OPCServerProject
 {
     public class PacketUtil
     {
-      
+
         /// <summary>
         /// 校验数据,若是一个多包数据，需要写成几个包，分别处理
         /// </summary>
@@ -66,7 +66,7 @@ namespace OPCServerProject
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public  static byte[] ConvertAry(string value)
+        public static byte[] ConvertAry(string value)
         {
             byte[] sendMessage = null;
             if (value.Length % 2 == 0)
@@ -79,7 +79,14 @@ namespace OPCServerProject
                 }
             }
             return sendMessage;
-        } PacketUtil
-    {
+        }
+
+        public static void savePacketContentToDb(PacketData data)
+        {
+            string rtu = data.moduleID;
+            string tableName = MonitorOPCServer.getInstance().dbNameMapping[rtu];
+
+            string sql = "insert into ["+tableName+"]";
+        }
     }
 }

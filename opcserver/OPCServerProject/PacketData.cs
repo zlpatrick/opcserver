@@ -7,27 +7,27 @@ namespace OPCServerProject
 {
     class PacketData
     {
-        string moduleID;
-        string sendTime;
-        int GPRSLevel;
-        int AI1AC1;
-        int AI2AC2;
-        int AI3AC3;
-        int AI4AC4;
-        int AI5AC5;
-        int AI6AC6;
-        bool DI1;
-        bool DI2;
-        bool DI3;
-        bool DI4;
-        bool DI5;
-        bool DI6;
-        bool DO1;
-        bool DO2;
-        bool DO3;
-        bool DO4;
-        bool DO5;
-        bool DO6;
+        public string moduleID;
+        public string sendTime;
+        public int GPRSLevel;
+        public int AI1AC1;
+        public int AI2AC2;
+        public int AI3AC3;
+        public int AI4AC4;
+        public int AI5AC5;
+        public int AI6AC6;
+        public bool DI1;
+        public bool DI2;
+        public bool DI3;
+        public bool DI4;
+        public bool DI5;
+        public bool DI6;
+        public bool DO1;
+        public bool DO2;
+        public bool DO3;
+        public bool DO4;
+        public bool DO5;
+        public bool DO6;
 
         public static PacketData resolveData1(byte[] data1)
         {
