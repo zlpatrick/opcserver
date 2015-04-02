@@ -20,7 +20,7 @@ namespace OPCServerProject
         public Thread sendCommandThread;
         public Thread clearResourceThread;
         public Dictionary<string, string> dbNameMapping = new Dictionary<string, string>();
-
+        public Dictionary<string, LabelStructure> labels = new Dictionary<string, LabelStructure>(); 
         public Dictionary<DateTime, Socket> socketAll;
         public Dictionary<DateTime, Thread> threadAll;
 
@@ -45,6 +45,11 @@ namespace OPCServerProject
                     string[] values = mappings[i].Split(',');
                     dbNameMapping.Add(values[0], values[1]);
                 }
+            }
+
+            if (File.Exists("label.properties"))
+            {
+                string[] labels = File.ReadAllLines("label.properties");
             }
         }
 
@@ -169,7 +174,7 @@ namespace OPCServerProject
                                             PacketData data1Packet = PacketData.resolveData1(data1);
                                             
                                             //接收日志
-                                           // LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
+                                            //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
                                                                                  
                                         }
                                         catch (Exception ex)

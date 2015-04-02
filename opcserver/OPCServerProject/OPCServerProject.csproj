@@ -66,6 +66,7 @@
       <DependentUpon>DBManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="DBUtil.cs" />
+    <Compile Include="LabelStructure.cs" />
     <Compile Include="LogUtil.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
