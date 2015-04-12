@@ -67,6 +67,12 @@
     </Compile>
     <Compile Include="DBUtil.cs" />
     <Compile Include="LabelStructure.cs" />
+    <Compile Include="LogInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogInfo.Designer.cs">
+      <DependentUpon>LogInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogUtil.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -101,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DBManagement.resx">
       <DependentUpon>DBManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogInfo.resx">
+      <DependentUpon>LogInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

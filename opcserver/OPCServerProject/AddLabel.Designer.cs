@@ -82,7 +82,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Name = "AddLabel";
-            this.Text = "添加设备与标签";
+            this.Text = "添加设备";
             this.ResumeLayout(false);
             this.PerformLayout();
 

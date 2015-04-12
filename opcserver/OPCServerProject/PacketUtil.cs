@@ -87,6 +87,18 @@ namespace OPCServerProject
             string tableName = MonitorOPCServer.getInstance().dbNameMapping[rtu];
 
             string sql = "insert into ["+tableName+"]";
+            DBUtil db = new DBUtil();
+            db.executeNonQuerySQL(sql);
         }
+
+        public static void saveAlertPacketContentToDb(PacketData data)
+        {
+            string rtu = data.moduleID;
+            string tableName = MonitorOPCServer.getInstance().dbNameMapping[rtu];
+
+            string sql = "insert into [" + tableName + "]";
+            DBUtil db = new DBUtil();
+            db.executeNonQuerySQL(sql);
+        } 
     }
 }

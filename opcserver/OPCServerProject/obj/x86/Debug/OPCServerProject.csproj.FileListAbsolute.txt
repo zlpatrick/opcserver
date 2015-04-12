@@ -14,3 +14,4 @@ C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServe
 C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.SelectLabel.resources
 C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.AddDBMapping.resources
 C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.DBManagement.resources
+C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.LogInfo.resources

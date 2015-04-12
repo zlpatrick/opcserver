@@ -23,7 +23,7 @@ namespace OPCServerProject
         {
             if (!File.Exists("label.properties"))
             {
-                File.Create("label.properties");
+                File.Create("label.properties").Close();
             }
             string[] labels = File.ReadAllLines("label.properties");
             
@@ -43,7 +43,15 @@ namespace OPCServerProject
                     for (int j = 0; j < labelText.Length; j++)
                     {
                         if (!labelText[j].Equals(""))
-                            node.Nodes.Add(labelText[j]);
+                        {
+                            string[] labelSubElement = labelText[j].Split('|');
+                            string labelName = labelSubElement[0];
+                            string labelType = labelSubElement[1];
+                            string inputOutput = labelSubElement[2];
+                            TreeNode subNode = new TreeNode(labelName + "(" + labelType + ")");
+                            subNode.Tag = labelName + "|" + labelType + "|" + inputOutput;
+                            node.Nodes.Add(subNode);
+                        }
                     }
                 }
             }
@@ -58,21 +66,89 @@ namespace OPCServerProject
                 TreeNode node = this.treeView1.Nodes.Add(addLabel.equipmentName);
                 if (addLabel.autoCreate)
                 {
-                    node.Nodes.Add("GPRS-Level");
-                    node.Nodes.Add("AI1/AC1");
-                    node.Nodes.Add("AI2/AC2");
-                    node.Nodes.Add("AI3/AC3");
-                    node.Nodes.Add("AI4/AC4");
-                    node.Nodes.Add("AI5/AC5");
-                    node.Nodes.Add("AI6/AC6");
-                    node.Nodes.Add("DI1");
-                    node.Nodes.Add("DI2");
-                    node.Nodes.Add("DI3");
-                    node.Nodes.Add("DI4");
-                    node.Nodes.Add("DI5");
-                    node.Nodes.Add("DI6");
+                    TreeNode subNode = new TreeNode("GPRS-Level(string)");
+                    subNode.Tag = "GPRS-Level|string|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("AI1/AC1(int)");
+                    subNode.Tag = "AI1/AC1|int|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("AI2/AC2(int)");
+                    subNode.Tag = "AI2/AC2|int|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("AI3/AC3(int)");
+                    subNode.Tag = "AI3/AC3|int|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("AI4/AC4(int)");
+                    subNode.Tag = "AI4/AC4|int|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("AI5/AC5(int)");
+                    subNode.Tag = "AI5/AC5|int|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("AI6/AC6(int)");
+                    subNode.Tag = "AI6/AC6|int|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DI1(bool)");
+                    subNode.Tag = "DI1|bool|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DI2(bool)");
+                    subNode.Tag = "DI2|bool|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DI3(bool)");
+                    subNode.Tag = "DI3|bool|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DI4(bool)");
+                    subNode.Tag = "DI4|bool|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DI5(bool)");
+                    subNode.Tag = "DI5|bool|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DI6(bool)");
+                    subNode.Tag = "DI6|bool|input";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DO1(bool)");
+                    subNode.Tag = "DO1|bool|output";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DO2(bool)");
+                    subNode.Tag = "DO2|bool|output";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DO3(bool)");
+                    subNode.Tag = "DO3|bool|output";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DO4(bool)");
+                    subNode.Tag = "DO4|bool|output";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DO5(bool)");
+                    subNode.Tag = "DO5|bool|output";
+                    node.Nodes.Add(subNode);
+
+                    subNode = new TreeNode("DO6(bool)");
+                    subNode.Tag = "DO6|bool|output";
+                    node.Nodes.Add(subNode);
+
+                   
                     List<string> appendLine = new List<string>();
-                    appendLine.Add(addLabel.equipmentName + "=GPRS-Level,AI1/AC1,AI2/AC2,AI3/AC3,AI4/AC4,AI5/AC5,AI6/AC6,DI1,DI2,DI3,DI4,DI5,DI6\n");
+                    string single = addLabel.equipmentName + "=GPRS-Level|string|input,AI1/AC1|int|input,AI2/AC2|int|input,AI3/AC3|int|input,"+
+                        "AI4/AC4|int|input,AI5/AC5|int|input,AI6/AC6|int|input,DI1|bool|input,DI2|bool|input,DI3|bool|input,DI4|bool|input,"+
+                        "DI5|bool|input,DI6|bool|input,DO1|bool|output,DO2|bool|output,DO3|bool|output,DO4|bool|output,DO5|bool|output,DO6|bool|output\n";
+                    appendLine.Add(single);
+                    labelContent.Add(addLabel.equipmentName, single);
                     File.AppendAllLines("label.properties", appendLine);
                 }
                 else
@@ -103,19 +179,26 @@ namespace OPCServerProject
 
                 if (!existed)
                 {
-                    selectedNode.Nodes.Add(select.labelName);
-                    string allValue = "";
-                    foreach (TreeNode subnode in selectedNode.Nodes)
+                    TreeNode newNode = new TreeNode(select.labelName + "(" + select.labelType + ")");
+                    string addedValue = select.labelName + "|" + select.labelType + "|" + select.inputOutput;
+                    newNode.Tag = addedValue;
+                    if (selectedNode.Nodes.Count == 0)
                     {
-                        allValue += subnode.Text + ",";
+                        if(!labelContent.ContainsKey(selectedNode.Text))
+                            labelContent.Add(selectedNode.Text, selectedNode.Text +"="+addedValue);
+                        else
+                            labelContent[selectedNode.Text] = labelContent[selectedNode.Text] + addedValue;
                     }
-                    allValue = allValue.Substring(0, allValue.Length - 1);
-                    labelContent[selectedNode.Text] = selectedNode.Text + "=" + allValue;
+                    else
+                    {
+                        labelContent[selectedNode.Text] = labelContent[selectedNode.Text] + "," + addedValue;
+                    }
+                    selectedNode.Nodes.Add(newNode);
                     File.WriteAllLines("label.properties", labelContent.Values.ToArray());
                 }
                 else
                 {
-                    MessageBox.Show("此设备已经添加了您选择的标签");
+                    MessageBox.Show("此设备已经添加了您指定的标签");
                 }
             }
         }
@@ -131,12 +214,14 @@ namespace OPCServerProject
             else
             {
                 TreeNode parent = selectedNode.Parent;
+                
                 selectedNode.Remove();
                 string allValue = "";
                 foreach (TreeNode subnode in parent.Nodes)
                 {
-                    allValue += subnode.Text+",";
+                    allValue += subnode.Tag+",";
                 }
+                if(allValue.Length>0)
                 allValue = allValue.Substring(0, allValue.Length - 1);
                 labelContent[parent.Text] = parent.Text + "="+ allValue;
             }

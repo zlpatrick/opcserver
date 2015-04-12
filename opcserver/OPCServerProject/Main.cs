@@ -16,51 +16,21 @@ namespace OPCServerProject
             InitializeComponent();
         }
 
-        UInt32[] TagHandle = new UInt32[100];
-
         private void button1_Click(object sender, EventArgs e)
         {
             MonitorOPCServer monitorServer = MonitorOPCServer.getInstance();
-            monitorServer.startMonitor();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            string exepath;
-            OPClib.WriteNotificationDelegate WriteCallback = new OPClib.WriteNotificationDelegate(MyWriteCallback);
-            exepath = Application.StartupPath + "\\OPCServerProject.exe";
-
-            OPClib.UpdateRegistry("{57E9743C-0678-419c-B28B-7508417DAC8C}",
-                                        "My OPC Server",
-                                        "My OPC Server",
-                                        exepath);
-            OPClib.SetVendorInfo("OPCServer.Com");
-            OPClib.InitWTOPCsvr("{57E9743C-0678-419c-B28B-7508417DAC8C}", 1000);
-
-            OPClib.EnableWriteNotification(WriteCallback, true);
-        }
-
-        public void MyWriteCallback(UInt32 hItem, ref Object Value, ref UInt32 ResultCode)
-        {
-            ResultCode = 0;
-            
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            TagHandle[0] = OPClib.CreateTag("Tag.1", "test1", 192, true);
-            TagHandle[1] = OPClib.CreateTag("Tag.2", "test2", 192, true);
-            TagHandle[2] = OPClib.CreateTag("Tag.3", "test3", 192, true);
-            TagHandle[3] = OPClib.CreateTag("Tag.4", "test4", 192, true);
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            OPClib.UpdateTag(TagHandle[0], "test11", 192);
-            OPClib.UpdateTag(TagHandle[1], "test12", 192);
-            OPClib.UpdateTag(TagHandle[2], "test13", 192);
-            OPClib.UpdateTag(TagHandle[3], "test14", 192);
+            string ip = this.textBox1.Text;
+            int port = -1;
+            try
+            {
+                port = Convert.ToInt32(this.textBox2.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("端口需要填写一个数字");
+                return;
+            }
+            monitorServer.startMonitor(ip,port);
         }
 
         private void oPC标签管理ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -73,6 +43,16 @@ namespace OPCServerProject
         {
             DBManagement dbmanagement = new DBManagement();
             dbmanagement.ShowDialog();
+        }
+
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("OPC数据监控服务器 v1.0");
+        }
+
+        private void 日志管理ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -18,11 +18,13 @@ namespace OPCServerProject
         private Socket listener;
         public Thread listeningThread;
         public Thread sendCommandThread;
-        public Thread clearResourceThread;
+        public Thread clearResourceThread; 
+        OPCServerUtil opc = new OPCServerUtil();
         public Dictionary<string, string> dbNameMapping = new Dictionary<string, string>();
         public Dictionary<string, LabelStructure> labels = new Dictionary<string, LabelStructure>(); 
         public Dictionary<DateTime, Socket> socketAll;
         public Dictionary<DateTime, Thread> threadAll;
+        public Dictionary<string, Dictionary<string, uint>> handles = new Dictionary<string, Dictionary<string, uint>>(); 
 
         private MonitorOPCServer()
         {
@@ -46,14 +48,17 @@ namespace OPCServerProject
                     dbNameMapping.Add(values[0], values[1]);
                 }
             }
-
+            LabelStructure labelStructure = new LabelStructure();
             if (File.Exists("label.properties"))
             {
                 string[] labels = File.ReadAllLines("label.properties");
+                labelStructure.load(labels);
             }
+            opc.registerOPCServer();
+            handles = opc.addOPCLabels(labelStructure);
         }
 
-        public void startMonitor()
+        public void startMonitor(string ip,int port)
         {
             loadInfo();
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
@@ -74,6 +79,7 @@ namespace OPCServerProject
             }
             catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show("启动失败");
             }
         }
 
@@ -172,10 +178,37 @@ namespace OPCServerProject
                                             }
 
                                             PacketData data1Packet = PacketData.resolveData1(data1);
-                                            
+                                            PacketUtil.savePacketContentToDb(data1Packet);
+                                            opc.updateToOPCLabel(data1Packet,handles);
+                                           
                                             //接收日志
                                             //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
                                                                                  
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    //报警数据
+                                    else if (result.Substring(6, 2) == "06")
+                                    {
+                                        try
+                                        {
+                                            //解析从12开始的40个字节，作为data1的数据
+                                            byte[] data4 = new byte[40];
+                                            for (int i = 0; i < 40; i++)
+                                            {
+                                                data4[i] = bytes1[i + 6];
+                                            }
+                                            
+                                            PacketData data4Packet = PacketData.resolveData4(data4);
+                                            PacketUtil.saveAlertPacketContentToDb(data4Packet);
+                                            opc.updateAlertToOPCLabel(data4Packet,handles);
+
+                                            //接收日志
+                                            //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
+
                                         }
                                         catch (Exception ex)
                                         {

@@ -23,7 +23,7 @@ namespace OPCServerProject
         {
             if (!File.Exists("alert.properties"))
             {
-                File.Create("alert.properties");
+                File.Create("alert.properties").Close();
             }
             else
             {
@@ -33,7 +33,7 @@ namespace OPCServerProject
 
             if (!File.Exists("dbmapping.properties"))
             {
-                File.Create("dbmapping.properties");
+                File.Create("dbmapping.properties").Close();
             }
             else
             {
@@ -47,7 +47,7 @@ namespace OPCServerProject
 
             if (!File.Exists("dbconn.properties"))
             {
-                File.Create("dbconn.properties");
+                File.Create("dbconn.properties").Close();
             }
             else
             {
