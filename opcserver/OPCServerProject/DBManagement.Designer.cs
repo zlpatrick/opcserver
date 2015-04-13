@@ -42,8 +42,8 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -184,17 +184,17 @@
             this.dataGridView1.Size = new System.Drawing.Size(348, 181);
             this.dataGridView1.TabIndex = 0;
             // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "对应数据库表名";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 150;
-            // 
             // Column1
             // 
             this.Column1.HeaderText = "RTU设备标识号";
             this.Column1.Name = "Column1";
             this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "对应数据库表名";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 150;
             // 
             // label6
             // 
@@ -219,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(664, 292);
+            this.ClientSize = new System.Drawing.Size(666, 302);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dataGridView1);

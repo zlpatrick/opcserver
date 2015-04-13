@@ -93,6 +93,7 @@ namespace OPCServerProject
             int hour = Convert.ToInt16(data1[15]);
             int minute = Convert.ToInt16(data1[16]);
             int second = Convert.ToInt16(data1[17]);
+            packet.sendTime = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 
             packet.packetDataMap["GPRS-Level"] = Convert.ToInt16(data1[18]);
             packet.packetDataMap["AI1/AC1"] = BitConverter.ToInt16(data1, 19);

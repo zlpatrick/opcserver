@@ -21,6 +21,7 @@ namespace OPCServerProject
         public Thread clearResourceThread; 
         OPCServerUtil opc = new OPCServerUtil();
         public Dictionary<string, string> dbNameMapping = new Dictionary<string, string>();
+        public string alertTable;
         public Dictionary<string, LabelStructure> labels = new Dictionary<string, LabelStructure>(); 
         public Dictionary<DateTime, Socket> socketAll;
         public Dictionary<DateTime, Thread> threadAll;
@@ -39,6 +40,11 @@ namespace OPCServerProject
 
         private void loadInfo()
         {
+            if (File.Exists("alert.properties"))
+            {
+                alertTable = File.ReadAllText("alert.properties");
+            }
+
             if (File.Exists("dbmapping.properties"))
             {
                 string[] mappings = File.ReadAllLines("dbmapping.properties");
@@ -204,7 +210,7 @@ namespace OPCServerProject
                                             
                                             PacketData data4Packet = PacketData.resolveData4(data4);
                                             PacketUtil.saveAlertPacketContentToDb(data4Packet);
-                                            opc.updateAlertToOPCLabel(data4Packet,handles);
+                                            //opc.updateAlertToOPCLabel(data4Packet,handles);
 
                                             //接收日志
                                             //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
