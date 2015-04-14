@@ -77,6 +77,14 @@ namespace OPCServerProject
             packetDataMap.Add("DO6", false);
         }
 
+        public static int bytesToInt(byte[] src, int offset)
+        {
+            int value;
+            value = (int) ((src[offset] & 0xFF) << 8)
+                    | (src[offset + 1] & 0xFF);
+            return value;
+        }  
+
         public static PacketData resolveData1(byte[] data1)
         {
             PacketData packet = new PacketData();
@@ -93,32 +101,54 @@ namespace OPCServerProject
             int hour = Convert.ToInt16(data1[15]);
             int minute = Convert.ToInt16(data1[16]);
             int second = Convert.ToInt16(data1[17]);
-            packet.sendTime = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+            packet.sendTime = "20"+year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 
             packet.packetDataMap["GPRS-Level"] = Convert.ToInt16(data1[18]);
-            packet.packetDataMap["AI1/AC1"] = BitConverter.ToInt16(data1, 19);
-            packet.packetDataMap["AI2/AC2"] = BitConverter.ToInt16(data1, 21);
-            packet.packetDataMap["AI3/AC3"] = BitConverter.ToInt16(data1, 23);
-            packet.packetDataMap["AI4/AC4"] = BitConverter.ToInt16(data1, 25);
-            packet.packetDataMap["AI5/AC5"] = BitConverter.ToInt16(data1, 27);
-            packet.packetDataMap["AI6/AC6"] = BitConverter.ToInt16(data1, 29);
+            packet.packetDataMap["AI1/AC1"] = bytesToInt(data1, 19);
+            packet.packetDataMap["AI2/AC2"] = bytesToInt(data1, 21);
+            packet.packetDataMap["AI3/AC3"] = bytesToInt(data1, 23);
+            packet.packetDataMap["AI4/AC4"] = bytesToInt(data1, 25);
+            packet.packetDataMap["AI5/AC5"] = bytesToInt(data1, 27);
+            packet.packetDataMap["AI6/AC6"] = bytesToInt(data1, 29);
 
-            string value = Convert.ToString(data1[31], 2);
-            packet.packetDataMap["DI1"] = Convert.ToBoolean(value[0]);
-            packet.packetDataMap["DI2"] = Convert.ToBoolean(value[1]);
-            packet.packetDataMap["DI3"] = Convert.ToBoolean(value[2]);
-            packet.packetDataMap["DI4"] = Convert.ToBoolean(value[3]);
-            packet.packetDataMap["DI5"] = Convert.ToBoolean(value[4]);
-            packet.packetDataMap["DI6"] = Convert.ToBoolean(value[5]);
+            string value = Convert.ToString(data1[31],2);
+            value = transferToEightDigit(value);
+            packet.packetDataMap["DI1"] = transferToBoolean(value[7]);
+            packet.packetDataMap["DI2"] = transferToBoolean(value[6]);
+            packet.packetDataMap["DI3"] = transferToBoolean(value[5]);
+            packet.packetDataMap["DI4"] = transferToBoolean(value[4]);
+            packet.packetDataMap["DI5"] = transferToBoolean(value[3]);
+            packet.packetDataMap["DI6"] = transferToBoolean(value[2]);
 
             value = Convert.ToString(data1[32], 2);
-            packet.packetDataMap["DO1"] = Convert.ToBoolean(value[0]);
-            packet.packetDataMap["DO2"] = Convert.ToBoolean(value[1]);
-            packet.packetDataMap["DO3"] = Convert.ToBoolean(value[2]);
-            packet.packetDataMap["DO4"] = Convert.ToBoolean(value[3]);
-            packet.packetDataMap["DO5"] = Convert.ToBoolean(value[4]);
-            packet.packetDataMap["DO6"] = Convert.ToBoolean(value[5]);
+            value = transferToEightDigit(value);
+            packet.packetDataMap["DO1"] = transferToBoolean(value[7]);
+            packet.packetDataMap["DO2"] = transferToBoolean(value[6]);
+            packet.packetDataMap["DO3"] = transferToBoolean(value[5]);
+            packet.packetDataMap["DO4"] = transferToBoolean(value[4]);
+            packet.packetDataMap["DO5"] = transferToBoolean(value[3]);
+            packet.packetDataMap["DO6"] = transferToBoolean(value[2]);
             return packet;
+        }
+
+        private static bool transferToBoolean(char str)
+        {
+            if (str == '0')
+                return false;
+            else
+                return true;
+        }
+
+        private static string transferToEightDigit(string str)
+        {
+            int zero = 8 - str.Length;
+            string result = "";
+            for (int i = 0; i < zero; i++)
+            {
+                result += "0";
+            }
+            result += str;
+            return result;
         }
 
         public static PacketData resolveData4(byte[] data4)

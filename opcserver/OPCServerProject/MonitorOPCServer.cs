@@ -23,8 +23,6 @@ namespace OPCServerProject
         public Dictionary<string, string> dbNameMapping = new Dictionary<string, string>();
         public string alertTable;
         public Dictionary<string, LabelStructure> labels = new Dictionary<string, LabelStructure>(); 
-        public Dictionary<DateTime, Socket> socketAll;
-        public Dictionary<DateTime, Thread> threadAll;
         public Dictionary<string, Dictionary<string, uint>> handles = new Dictionary<string, Dictionary<string, uint>>(); 
 
         private MonitorOPCServer()
@@ -67,21 +65,32 @@ namespace OPCServerProject
         public void startMonitor(string ip,int port)
         {
             loadInfo();
-            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-            listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket clientSocket = null ;
             try
             {
-                listener.Bind(localEndPoint);
-                listener.Listen(50);
+                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                IPAddress ipAddress = IPAddress.Parse(ip);
+                clientSocket.Connect(new IPEndPoint(ipAddress, port));
+                byte[] initial = new byte[] { 0x68, 0x00, 0x03, 0x05, 0x01, 0x00, 0x06, 0x16 };
+                clientSocket.Send(initial); 
+            }
+            catch(Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("连接失败");
+            }
+            try
+            {
                 //接收线程
-                listeningThread = new Thread(new ParameterizedThreadStart(startListeningThread));
-                listeningThread.Start(listener);
+                listeningThread = new Thread(new ParameterizedThreadStart(ReceiveWorkThread));
+                listeningThread.Start(clientSocket);
+
                 //发送线程
                 //sendCommandThread = new Thread(new ThreadStart(sendCommandWorkThread));
                 //sendCommandThread.Start();
+
                 //清理线程
-               // clearResourceThread = new Thread(new ThreadStart(clearWorkThread));
-               // clearResourceThread.Start();
+                //clearResourceThread = new Thread(new ThreadStart(clearWorkThread));
+                //clearResourceThread.Start();
             }
             catch (Exception ex)
             {
@@ -91,27 +100,6 @@ namespace OPCServerProject
 
         public void shoutdownMonitor()
         {
-        }
-
-        private void startListeningThread(object serverSocket)
-        {
-            while (true)
-            {
-                Socket client = null;
-                DateTime dt = DateTime.Now;
-                try
-                {
-                    client = ((Socket)serverSocket).Accept();//把地址都接收进来，找到各个客户端
-                    socketAll.Add(dt, client);
-                }
-                catch (Exception ex)
-                {
-                    break;
-                }
-                Thread receiveThread = new Thread(new ParameterizedThreadStart(ReceiveWorkThread));//调用接收数据线程方法
-                receiveThread.Start(client);
-                threadAll.Add(dt, receiveThread);
-            }
         }
 
         private void ReceiveWorkThread(object obj)
@@ -177,19 +165,18 @@ namespace OPCServerProject
                                         try
                                         {
                                             //解析从12开始的40个字节，作为data1的数据
-                                            byte[] data1 = new byte[40];
-                                            for (int i = 0; i < 40; i++)
+                                            byte[] data1 = new byte[33];
+                                            for (int i = 0; i < 33; i++)
                                             {
                                                 data1[i] = bytes1[i + 6];
                                             }
 
                                             PacketData data1Packet = PacketData.resolveData1(data1);
-                                            PacketUtil.savePacketContentToDb(data1Packet);
+                                            //PacketUtil.savePacketContentToDb(data1Packet);
                                             opc.updateToOPCLabel(data1Packet,handles);
                                            
                                             //接收日志
-                                            //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");
-                                                                                 
+                                            //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]:从RTU设备接收Modbus连接数据（Rtu=" + Rtu + "）成功；" + "接收地址:<" + socket.RemoteEndPoint.ToString() + ">，接收数据是：<" + result + ">");                              
                                         }
                                         catch (Exception ex)
                                         {
@@ -202,7 +189,7 @@ namespace OPCServerProject
                                         try
                                         {
                                             //解析从12开始的40个字节，作为data1的数据
-                                            byte[] data4 = new byte[40];
+                                            byte[] data4 = new byte[14];
                                             for (int i = 0; i < 40; i++)
                                             {
                                                 data4[i] = bytes1[i + 6];

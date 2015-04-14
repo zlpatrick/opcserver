@@ -32,18 +32,19 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.数据库管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oPC标签管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.日志管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.日志管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(176, 115);
+            this.button1.Location = new System.Drawing.Point(109, 114);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -78,12 +79,27 @@
             this.oPC标签管理ToolStripMenuItem.Text = "OPC标签管理";
             this.oPC标签管理ToolStripMenuItem.Click += new System.EventHandler(this.oPC标签管理ToolStripMenuItem_Click);
             // 
+            // 日志管理ToolStripMenuItem
+            // 
+            this.日志管理ToolStripMenuItem.Name = "日志管理ToolStripMenuItem";
+            this.日志管理ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.日志管理ToolStripMenuItem.Text = "日志管理";
+            this.日志管理ToolStripMenuItem.Click += new System.EventHandler(this.日志管理ToolStripMenuItem_Click);
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.关于ToolStripMenuItem.Text = "关于";
+            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
+            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(109, 65);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(136, 21);
             this.textBox1.TabIndex = 2;
+            this.textBox1.Text = "1.85.53.162";
             // 
             // textBox2
             // 
@@ -91,6 +107,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(64, 21);
             this.textBox2.TabIndex = 3;
+            this.textBox2.Text = "9002";
             // 
             // label1
             // 
@@ -110,25 +127,23 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "端口";
             // 
-            // 日志管理ToolStripMenuItem
+            // button2
             // 
-            this.日志管理ToolStripMenuItem.Name = "日志管理ToolStripMenuItem";
-            this.日志管理ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.日志管理ToolStripMenuItem.Text = "日志管理";
-            this.日志管理ToolStripMenuItem.Click += new System.EventHandler(this.日志管理ToolStripMenuItem_Click);
-            // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.关于ToolStripMenuItem.Text = "关于";
-            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(226, 114);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "停止监控";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 164);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox2);
@@ -157,6 +172,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem 日志管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
     }
 }
 

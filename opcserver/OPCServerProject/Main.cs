@@ -31,6 +31,8 @@ namespace OPCServerProject
                 return;
             }
             monitorServer.startMonitor(ip,port);
+            this.button1.Enabled = false;
+            this.button2.Enabled = true;
         }
 
         private void oPC标签管理ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -52,7 +54,15 @@ namespace OPCServerProject
 
         private void 日志管理ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            LogInfo log = new LogInfo();
+            log.ShowDialog();
+        }
 
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            MonitorOPCServer.getInstance().shoutdownMonitor();
+            this.button1.Enabled = true;
+            this.button2.Enabled = false;
         }
     }
 }
