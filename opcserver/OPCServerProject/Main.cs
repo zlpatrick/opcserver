@@ -30,7 +30,17 @@ namespace OPCServerProject
                 MessageBox.Show("端口需要填写一个数字");
                 return;
             }
-            monitorServer.startMonitor(ip,port);
+
+            int minute = 0;
+            try
+            {
+                minute = Convert.ToInt32(this.textBox3.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("超时时间需要填写一个数字");
+            }
+            monitorServer.startMonitor(ip,port,minute);
             this.button1.Enabled = false;
             this.button2.Enabled = true;
         }

@@ -94,7 +94,7 @@ namespace OPCServerProject
 
         public static int bytesToInt(byte[] src, int offset)
         {
-            int value = src[offset] | src[offset + 1] << 8;
+            int value = src[offset] << 8 | src[offset + 1];
             return value;
         }  
 
@@ -119,7 +119,7 @@ namespace OPCServerProject
             packet.packetDataMap["GPRS-Level"] = Convert.ToInt16(data1[18]);
             string a = Convert.ToString(data1[19], 2);
             string b = Convert.ToString(data1[20], 2);
-          
+
             packet.packetDataMap["AI1/AC1"] = bytesToInt(data1, 19); 
             packet.packetDataMap["AI2/AC2"] = bytesToInt(data1, 21);
             packet.packetDataMap["AI3/AC3"] = bytesToInt(data1, 23);

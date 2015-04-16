@@ -23,7 +23,8 @@ namespace OPCServerProject
         public Dictionary<string, string> dbNameMapping = new Dictionary<string, string>();
         public string alertTable;
         public Dictionary<string, LabelStructure> labels = new Dictionary<string, LabelStructure>(); 
-        public Dictionary<string, Dictionary<string, uint>> handles = new Dictionary<string, Dictionary<string, uint>>(); 
+        public Dictionary<string, Dictionary<string, uint>> handles = new Dictionary<string, Dictionary<string, uint>>();
+        public Dictionary<string, DateTime> lastUpdate = new Dictionary<string, DateTime>();
 
         private MonitorOPCServer()
         {
@@ -62,7 +63,7 @@ namespace OPCServerProject
             handles = opc.addOPCLabels(labelStructure);
         }
 
-        public void startMonitor(string ip,int port)
+        public void startMonitor(string ip,int port,int timeout)
         {
             loadInfo();
             
@@ -120,6 +121,7 @@ namespace OPCServerProject
             alertTable = null;
             labels.Clear();
             handles.Clear();
+            lastUpdate.Clear();
             try
             {
                 opc.unRegisterOPCServer();
@@ -205,6 +207,11 @@ namespace OPCServerProject
    
                                             opc.updateToOPCLabel(data1Packet,handles);
                                             PacketUtil.savePacketContentToDb(data1Packet);
+
+                                            DateTime now = DateTime.Now;
+                                            if(lastUpdate.ContainsKey(data1Packet.moduleID))
+                                            {
+                                            }
                                         }                                        
                                         catch (Exception ex)
                                         {
