@@ -54,6 +54,21 @@ namespace OPCServerProject
                 return "DO6";
         }
 
+        public object transformValue(int value, int pos)
+        {
+            if (pos >= 1 && pos <= 6)
+            {
+                return value;
+            }
+            else
+            {
+                if (value == 0)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
         public PacketData()
         {
             packetDataMap.Add("GPRS-Level", 0);
@@ -79,9 +94,7 @@ namespace OPCServerProject
 
         public static int bytesToInt(byte[] src, int offset)
         {
-            int value;
-            value = (int) ((src[offset] & 0xFF) << 8)
-                    | (src[offset + 1] & 0xFF);
+            int value = src[offset] | src[offset + 1] << 8;
             return value;
         }  
 
@@ -104,7 +117,10 @@ namespace OPCServerProject
             packet.sendTime = "20"+year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 
             packet.packetDataMap["GPRS-Level"] = Convert.ToInt16(data1[18]);
-            packet.packetDataMap["AI1/AC1"] = bytesToInt(data1, 19);
+            string a = Convert.ToString(data1[19], 2);
+            string b = Convert.ToString(data1[20], 2);
+          
+            packet.packetDataMap["AI1/AC1"] = bytesToInt(data1, 19); 
             packet.packetDataMap["AI2/AC2"] = bytesToInt(data1, 21);
             packet.packetDataMap["AI3/AC3"] = bytesToInt(data1, 23);
             packet.packetDataMap["AI4/AC4"] = bytesToInt(data1, 25);
@@ -164,7 +180,7 @@ namespace OPCServerProject
             packet.moduleID = Encoding.ASCII.GetString(moduleID);
 
             packet.alertPos = Convert.ToInt32(data4[12]);
-            packet.alertValue = BitConverter.ToInt16(data4,13);
+            packet.alertValue = bytesToInt(data4, 13);
 
             return packet;
         }

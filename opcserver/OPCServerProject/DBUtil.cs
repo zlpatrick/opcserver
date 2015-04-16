@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using System.IO;
 
 namespace OPCServerProject
 {
@@ -12,11 +13,27 @@ namespace OPCServerProject
     {
         private SqlConnection getConnection()
         {
-            Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            string dbhost = cfa.AppSettings.Settings["dbhost"].Value;
-            string dbname = cfa.AppSettings.Settings["dbname"].Value;
-            string dbuser = cfa.AppSettings.Settings["dbuser"].Value;
-            string dbpass = cfa.AppSettings.Settings["dbpass"].Value;
+            string dbhost = "";
+            string dbname = "";
+            string dbuser = "";
+            string dbpass = "";
+
+            if (!File.Exists("dbconn.properties"))
+            {
+                File.Create("dbconn.properties").Close();
+            }
+            else
+            {
+                string[] values = File.ReadAllLines("dbconn.properties");
+                if (values.Length > 0)
+                {
+                    dbhost = values[0];
+                    dbname = values[1];
+                    dbuser = values[2];
+                    dbpass = values[3];
+                }
+            }
+
             string connStr = "Data Source=" + dbhost + ";Initial Catalog=" + dbname + ";User ID=" + dbuser + ";Password=" + dbpass;
             SqlConnection conn = new SqlConnection(connStr);
             return conn;
@@ -45,10 +62,19 @@ namespace OPCServerProject
             lock (conn)
             {
                 conn.Open();
-                SqlCommand command = conn.CreateCommand();
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-                conn.Close();
+                try
+                {
+                    SqlCommand command = conn.CreateCommand();
+                    command.CommandText = sql;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
 

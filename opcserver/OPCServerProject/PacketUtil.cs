@@ -84,6 +84,11 @@ namespace OPCServerProject
         public static void savePacketContentToDb(PacketData data)
         {
             string rtu = data.moduleID;
+            if ( !MonitorOPCServer.getInstance().dbNameMapping.ContainsKey(rtu))
+            {
+                return;
+            }
+
             string tableName = MonitorOPCServer.getInstance().dbNameMapping[rtu];
 
             string sql = string.Format("insert into [{0}]" +
@@ -103,6 +108,8 @@ namespace OPCServerProject
         {
             string rtu = data.moduleID;
             string tableName = MonitorOPCServer.getInstance().alertTable;
+            if (tableName == null)
+                return;
 
             string sql = "";/* string.Format("insert into [{0}]" +
              "(rtu,[time],dbm,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10,ch11,ch12,ch13,ch14,ch15,ch16,ch17,ch18) values" +

@@ -31,8 +31,7 @@ namespace OPCServerProject
                 int value = data.alertValue;
                 if (moduleHandle.ContainsKey(data.resolvePos(pos)))
                 {
-                    OPClib.UpdateTag(moduleHandle[data.resolvePos(pos)], value, 192);
-
+                    OPClib.UpdateTag(moduleHandle[data.resolvePos(pos)], data.transformValue(value,pos), 192);
                 }
             }
         }
@@ -75,14 +74,19 @@ namespace OPCServerProject
             exepath = System.Windows.Forms.Application.StartupPath + "\\OPCServerProject.exe";
             
             OPClib.WriteNotificationDelegate WriteCallback = new OPClib.WriteNotificationDelegate(MyWriteCallback);
-            OPClib.UpdateRegistry("{57E9743C-0678-419c-B28B-7508417DAC8C}",
+            OPClib.UpdateRegistry("{4FEFF1A0-5B75-4EF3-BC6D-37145069E552}",
                                         "My OPC Server",
                                         "My OPC Server",
                                         exepath);
             OPClib.SetVendorInfo("OPCServer.Com");
-            OPClib.InitWTOPCsvr("{57E9743C-0678-419c-B28B-7508417DAC8C}", 1000);
+            OPClib.InitWTOPCsvr("{4FEFF1A0-5B75-4EF3-BC6D-37145069E552}", 1000);
 
             OPClib.EnableWriteNotification(WriteCallback, true);
+        }
+
+        public void unRegisterOPCServer()
+        {
+            OPClib.UnregisterServer("{4FEFF1A0-5B75-4EF3-BC6D-37145069E552}", "My OPC Server");
         }
 
         public void MyWriteCallback(UInt32 hItem, ref Object Value, ref UInt32 ResultCode)

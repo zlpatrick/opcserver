@@ -13,3 +13,18 @@ C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServe
 C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.DBManagement.resources
 C:\Users\Patrick\git\OPCServer\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.LogInfo.resources
 C:\Users\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.csproj.GenerateResource.Cache
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.exe
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.pdb
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\bin\Debug\OPCServerProject.exe
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\bin\Debug\OPCServerProject.pdb
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.AddDBMapping.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.AddLabel.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.DBManagement.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.LogInfo.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.Form1.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.OPCLabel.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.Properties.Resources.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.SelectLabel.resources
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\GenerateResource.write.1.tlog

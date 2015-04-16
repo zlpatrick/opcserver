@@ -38,7 +38,7 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(27, 26);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "节点0";
+            treeNode1.Name = "rootNode";
             treeNode1.Text = "所有日志";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
