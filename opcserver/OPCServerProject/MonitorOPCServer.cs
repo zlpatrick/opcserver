@@ -63,7 +63,7 @@ namespace OPCServerProject
             handles = opc.addOPCLabels(labelStructure);
         }
 
-        public void startMonitor(string ip,int port,int timeout)
+        public void startMonitor(string ip,int port,int timeout,bool enableOutput)
         {
             loadInfo();
             

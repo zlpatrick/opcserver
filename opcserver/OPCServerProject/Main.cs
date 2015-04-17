@@ -32,15 +32,27 @@ namespace OPCServerProject
             }
 
             int minute = 0;
-            try
+
+            if (this.checkBox1.Checked)
             {
-                minute = Convert.ToInt32(this.textBox3.Text);
+                try
+                {
+                    minute = Convert.ToInt32(this.textBox3.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("超时时间需要填写一个数字");
+                    return;
+                }
+
+                if (minute <= 0)
+                {
+                    MessageBox.Show("超时时间需要填写一个大于0的数字");
+                    return;
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("超时时间需要填写一个数字");
-            }
-            monitorServer.startMonitor(ip,port,minute);
+            bool enableOutput = this.checkBox2.Checked;
+            monitorServer.startMonitor(ip,port,minute,enableOutput);
             this.button1.Enabled = false;
             this.button2.Enabled = true;
         }
@@ -73,6 +85,18 @@ namespace OPCServerProject
             MonitorOPCServer.getInstance().shoutdownMonitor();
             this.button1.Enabled = true;
             this.button2.Enabled = false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.checkBox1.Checked)
+            {
+                this.textBox3.Enabled = true;
+            }
+            else
+            {
+                this.textBox3.Enabled = false;
+            }
         }
     }
 }
