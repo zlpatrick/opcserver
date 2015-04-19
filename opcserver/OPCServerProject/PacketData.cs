@@ -117,8 +117,6 @@ namespace OPCServerProject
             packet.sendTime = "20"+year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 
             packet.packetDataMap["GPRS-Level"] = Convert.ToInt16(data1[18]);
-            string a = Convert.ToString(data1[19], 2);
-            string b = Convert.ToString(data1[20], 2);
 
             packet.packetDataMap["AI1/AC1"] = bytesToInt(data1, 19); 
             packet.packetDataMap["AI2/AC2"] = bytesToInt(data1, 21);

@@ -28,3 +28,16 @@ C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x
 C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.SelectLabel.resources
 C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Documents and Settings\Patrick\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.exe
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.pdb
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\bin\Debug\OPCServerProject.exe
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\bin\Debug\OPCServerProject.pdb
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.AddDBMapping.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.AddLabel.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.DBManagement.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.LogInfo.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.Form1.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.OPCLabel.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.Properties.Resources.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.SelectLabel.resources
+C:\Users\zhangpa\git\opcserver\opcserver\OPCServerProject\obj\x86\Debug\OPCServerProject.csproj.GenerateResource.Cache
