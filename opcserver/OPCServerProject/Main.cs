@@ -98,5 +98,10 @@ namespace OPCServerProject
                 this.textBox3.Enabled = false;
             }
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MonitorOPCServer.getInstance().shoutdownMonitor();
+        }
     }
 }

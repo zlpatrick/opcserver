@@ -29,7 +29,7 @@ namespace OPCServerProject
         public Dictionary<string, PacketData> lastUpdateData = new Dictionary<string, PacketData>();
         public List<string> onlineLabel = new List<string>();
         public Dictionary<string, Dictionary<string, object>> currentOutputValue = new Dictionary<string,Dictionary<string,object>>();
-
+       
         private MonitorOPCServer()
         {
         }
@@ -346,7 +346,7 @@ namespace OPCServerProject
             while(true)
             {
                 Thread.Sleep(1000);
-                DateTime now = new DateTime();
+                DateTime now = DateTime.Now ;
 
                 foreach(KeyValuePair<string,DateTime> updatedItem in lastUpdate)
                 {
