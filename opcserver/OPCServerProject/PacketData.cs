@@ -71,25 +71,25 @@ namespace OPCServerProject
 
         public PacketData()
         {
-            packetDataMap.Add("GPRS-Level", 0);
-            packetDataMap.Add("AI1/AC1", 0);
-            packetDataMap.Add("AI2/AC2", 0);
-            packetDataMap.Add("AI3/AC3", 0);
-            packetDataMap.Add("AI4/AC4", 0);
-            packetDataMap.Add("AI5/AC5", 0);
-            packetDataMap.Add("AI6/AC6", 0);
-            packetDataMap.Add("DI1", false);
-            packetDataMap.Add("DI2", false);
-            packetDataMap.Add("DI3", false);
-            packetDataMap.Add("DI4", false);
-            packetDataMap.Add("DI5", false);
-            packetDataMap.Add("DI6", false);
-            packetDataMap.Add("DO1", false);
-            packetDataMap.Add("DO2", false);
-            packetDataMap.Add("DO3", false);
-            packetDataMap.Add("DO4", false);
-            packetDataMap.Add("DO5", false);
-            packetDataMap.Add("DO6", false);
+            packetDataMap.Add("GPRS-Level", null);
+            packetDataMap.Add("AI1/AC1", null);
+            packetDataMap.Add("AI2/AC2", null);
+            packetDataMap.Add("AI3/AC3", null);
+            packetDataMap.Add("AI4/AC4", null);
+            packetDataMap.Add("AI5/AC5", null);
+            packetDataMap.Add("AI6/AC6", null);
+            packetDataMap.Add("DI1", null);
+            packetDataMap.Add("DI2", null);
+            packetDataMap.Add("DI3", null);
+            packetDataMap.Add("DI4", null);
+            packetDataMap.Add("DI5", null);
+            packetDataMap.Add("DI6", null);
+            packetDataMap.Add("DO1", null);
+            packetDataMap.Add("DO2", null);
+            packetDataMap.Add("DO3", null);
+            packetDataMap.Add("DO4", null);
+            packetDataMap.Add("DO5", null);
+            packetDataMap.Add("DO6", null);
         }
 
         public static int bytesToInt(byte[] src, int offset)

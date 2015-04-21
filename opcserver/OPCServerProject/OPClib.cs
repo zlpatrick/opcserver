@@ -149,5 +149,8 @@ namespace OPCServerProject
         public delegate void ErrorCallbackDelegate(UInt32 handle, UInt32 ResultCode, [MarshalAs(UnmanagedType.LPStr)] String Message);
         [DllImport("WtOPCsvr.dll")]
         public static extern bool EnableErrorCallback(ErrorCallbackDelegate Callback);
+
+        [DllImport("WtOPCsvr.dll")]
+        public static extern UInt32 Deactivate30MinTimer([MarshalAs(UnmanagedType.LPStr)] String code);
     }
 }

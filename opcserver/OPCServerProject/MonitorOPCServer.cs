@@ -63,6 +63,7 @@ namespace OPCServerProject
                 string[] labels = File.ReadAllLines("label.properties");
                 labelStructure.load(labels);
             }
+            
             opc.registerOPCServer();
             handles = opc.addOPCLabels(labelStructure);
         }
@@ -366,6 +367,7 @@ namespace OPCServerProject
                                     lastUpdateData[moduleID].packetDataMap.ContainsKey(labelName))
                                 {
                                     OPClib.UpdateTag(labelHandle, lastUpdateData[moduleID].packetDataMap[labelName], 0);
+                                    //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]: 信号差");
                                 }
                             }
                         }
@@ -471,6 +473,8 @@ namespace OPCServerProject
                                             {
                                                 onlineLabel.Add(data1Packet.moduleID);
                                             }
+
+                                           // LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]: 收到data1");
                                         }                                        
                                         catch (Exception ex)
                                         {
@@ -493,6 +497,7 @@ namespace OPCServerProject
                                             
                                             opc.updateAlertToOPCLabel(data4Packet,handles);
                                             PacketUtil.saveAlertPacketContentToDb(data4Packet);
+                                          //  LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]: 收到data4");
                                         }
                                         catch (Exception ex)
                                         {

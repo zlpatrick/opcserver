@@ -16,7 +16,11 @@ namespace OPCServerProject
                 {
                     if (data.packetDataMap.ContainsKey(handle.Key))
                     {
-                        OPClib.UpdateTag(handle.Value, data.packetDataMap[handle.Key], 192);
+                        //System.Runtime.InteropServices.FILETIME f = new System.Runtime.InteropServices.FILETIME();
+                        deactive();
+                        OPClib.UpdateTag(handle.Value, data.packetDataMap[handle.Key], 192);//, System.Runtime.InteropServices.FILETIME);
+                        
+                       // LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]: OPC标签更新");
                     }
                 }
             }
@@ -31,6 +35,7 @@ namespace OPCServerProject
                 int value = data.alertValue;
                 if (moduleHandle.ContainsKey(data.resolvePos(pos)))
                 {
+                    deactive();
                     OPClib.UpdateTag(moduleHandle[data.resolvePos(pos)], data.transformValue(value,pos), 192);
                 }
             }
@@ -58,6 +63,7 @@ namespace OPCServerProject
                 
                 foreach (KeyValuePair<string, LabelItem> pair in items)
                 {
+                    deactive();
                     uint handle = OPClib.CreateTag(equip + "." + pair.Key, getDefaultValue(pair.Value.labelType), 192, true);
                     handles.Add(pair.Key, handle);
                 }
@@ -68,11 +74,16 @@ namespace OPCServerProject
             return labelHandles;
         }
 
+        public void deactive()
+        {
+            OPClib.Deactivate30MinTimer("JVRPS53R5V64226N62H4");
+        }
+
         public void registerOPCServer()
         {
             string exepath;
             exepath = System.Windows.Forms.Application.StartupPath + "\\OPCServerProject.exe";
-            
+            deactive();
             OPClib.WriteNotificationDelegate WriteCallback = new OPClib.WriteNotificationDelegate(MyWriteCallback);
             OPClib.UpdateRegistry("{4FEFF1A0-5B75-4EF3-BC6D-37145069E552}",
                                         "My OPC Server",
@@ -86,6 +97,7 @@ namespace OPCServerProject
 
         public void unRegisterOPCServer()
         {
+            deactive();
             OPClib.UnregisterServer("{4FEFF1A0-5B75-4EF3-BC6D-37145069E552}", "My OPC Server");
         }
 
