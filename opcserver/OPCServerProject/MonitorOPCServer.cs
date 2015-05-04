@@ -119,7 +119,9 @@ namespace OPCServerProject
             while(true)
             {
                 Thread.Sleep(1000);
-                foreach(string module in onlineLabel)
+                List<string> nowOnline = new List<string>();
+                nowOnline.AddRange(onlineLabel);
+                foreach (string module in nowOnline)
                 {
                     if(handles.ContainsKey(module))
                     {
@@ -171,6 +173,7 @@ namespace OPCServerProject
                                 try
                                 {
                                     listener.Send(constructDataPacket(values,module));
+                                    currentOutputValue[module] = values;
                                 }
                                 catch(Exception ex)
                                 {
@@ -208,7 +211,7 @@ namespace OPCServerProject
         public byte constructbit(Dictionary<string,object> data)
         {
             string result = "";
-            if((bool)data["DO6"] == true)
+            if((int)data["DO6"] == 1)
             {
                 result += "1";
             }
@@ -217,7 +220,7 @@ namespace OPCServerProject
                 result += "0";
             }
 
-            if((bool)data["DO5"] == true)
+            if((int)data["DO5"] == 1)
             {
                 result += "1";
             }
@@ -226,7 +229,7 @@ namespace OPCServerProject
                 result += "0";
             }
 
-            if((bool)data["DO4"] == true)
+            if((int)data["DO4"] == 1)
             {
                 result += "1";
             }
@@ -235,7 +238,7 @@ namespace OPCServerProject
                 result += "0";
             }
 
-            if((bool)data["DO3"] == true)
+            if((int)data["DO3"] == 1)
             {
                 result += "1";
             }
@@ -244,7 +247,7 @@ namespace OPCServerProject
                 result += "0";
             }
 
-            if((bool)data["DO2"] == true)
+            if((int)data["DO2"] == 1)
             {
                 result += "1";
             }
@@ -253,7 +256,7 @@ namespace OPCServerProject
                 result += "0";
             }
 
-            if((bool)data["DO1"] == true)
+            if((int)data["DO1"] == 1)
             {
                 result += "1";
             }
@@ -271,7 +274,7 @@ namespace OPCServerProject
             bool equals = true;
             foreach (KeyValuePair<string, object> current in currentValue)
             {
-                if (savedValue.ContainsKey(current.Key) && savedValue[current.Key] != current.Value)
+                if (savedValue.ContainsKey(current.Key) && (!savedValue[current.Key].Equals(current.Value)))
                 {
                     equals = false;
                     break;

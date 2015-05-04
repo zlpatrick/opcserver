@@ -18,8 +18,10 @@ namespace OPCServerProject
                     {
                         //System.Runtime.InteropServices.FILETIME f = new System.Runtime.InteropServices.FILETIME();
                         deactive();
-                        OPClib.UpdateTag(handle.Value, data.packetDataMap[handle.Key], 192);//, System.Runtime.InteropServices.FILETIME);
-                        
+                        if (!handle.Key.StartsWith("DO"))
+                        {
+                            OPClib.UpdateTag(handle.Value, data.packetDataMap[handle.Key], 192);//, System.Runtime.InteropServices.FILETIME);
+                        }
                        // LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]: OPC标签更新");
                     }
                 }
@@ -48,7 +50,7 @@ namespace OPCServerProject
             else if (type.Equals("string"))
                 return "";
             else if (type.Equals("bool"))
-                return false;
+                return 0;
             else 
                 return null;
         }

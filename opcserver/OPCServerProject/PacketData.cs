@@ -63,9 +63,9 @@ namespace OPCServerProject
             else
             {
                 if (value == 0)
-                    return false;
+                    return 0;
                 else
-                    return true;
+                    return 1;
             }
         }
 
@@ -145,12 +145,12 @@ namespace OPCServerProject
             return packet;
         }
 
-        private static bool transferToBoolean(char str)
+        private static int transferToBoolean(char str)
         {
             if (str == '0')
-                return false;
+                return 0;
             else
-                return true;
+                return 1;
         }
 
         private static string transferToEightDigit(string str)

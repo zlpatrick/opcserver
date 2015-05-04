@@ -111,15 +111,9 @@ namespace OPCServerProject
             if (tableName == null)
                 return;
 
-            string sql = "";/* string.Format("insert into [{0}]" +
-             "(rtu,[time],dbm,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10,ch11,ch12,ch13,ch14,ch15,ch16,ch17,ch18) values" +
-             "('{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21})", tableName,
-             data.moduleID, data.sendTime, data.packetDataMap["GPRS-Level"], data.packetDataMap["AI1/AC1"], data.packetDataMap["AI2/AC2"]
-             , data.packetDataMap["AI3/AC3"], data.packetDataMap["AI4/AC4"], data.packetDataMap["AI5/AC5"], data.packetDataMap["AI6/AC6"]
-             , data.packetDataMap["DI1"], data.packetDataMap["DI2"], data.packetDataMap["DI3"], data.packetDataMap["DI4"]
-             , data.packetDataMap["DI5"], data.packetDataMap["DI6"], data.packetDataMap["DO1"], data.packetDataMap["DO2"]
-             , data.packetDataMap["DO3"], data.packetDataMap["DO4"], data.packetDataMap["DO5"], data.packetDataMap["DO6"]);*/
-
+            string sql = string.Format("insert into [{0}]" +
+             "(rtu,[time],alertPosition,alertValue) values('{1}','{2}',{3},{4}", tableName,
+             data.moduleID, data.sendTime, data.alertPos, data.alertValue);
             DBUtil db = new DBUtil();
             db.executeNonQuerySQL(sql);
         } 
