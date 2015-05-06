@@ -211,34 +211,7 @@ namespace OPCServerProject
         public byte constructbit(Dictionary<string,object> data)
         {
             string result = "";
-            if((int)data["DO6"] == 1)
-            {
-                result += "1";
-            }
-            else
-            {
-                result += "0";
-            }
-
-            if((int)data["DO5"] == 1)
-            {
-                result += "1";
-            }
-            else
-            {
-                result += "0";
-            }
-
-            if((int)data["DO4"] == 1)
-            {
-                result += "1";
-            }
-            else
-            {
-                result += "0";
-            }
-
-            if((int)data["DO3"] == 1)
+            if((int)data["DO1"] == 1)
             {
                 result += "1";
             }
@@ -256,7 +229,7 @@ namespace OPCServerProject
                 result += "0";
             }
 
-            if((int)data["DO1"] == 1)
+            if((int)data["DO3"] == 1)
             {
                 result += "1";
             }
@@ -264,6 +237,34 @@ namespace OPCServerProject
             {
                 result += "0";
             }
+
+            if((int)data["DO4"] == 1)
+            {
+                result += "1";
+            }
+            else
+            {
+                result += "0";
+            }
+
+            if((int)data["DO5"] == 1)
+            {
+                result += "1";
+            }
+            else
+            {
+                result += "0";
+            }
+
+            if((int)data["DO6"] == 1)
+            {
+                result += "1";
+            }
+            else
+            {
+                result += "0";
+            }
+            result += "00";
 
             byte b = Convert.ToByte(result,2);
             return b;
@@ -352,7 +353,12 @@ namespace OPCServerProject
                 Thread.Sleep(1000);
                 DateTime now = DateTime.Now ;
 
+                Dictionary<string, DateTime> oneTimeUpdate = new Dictionary<string, DateTime>();
                 foreach(KeyValuePair<string,DateTime> updatedItem in lastUpdate)
+                {
+                    oneTimeUpdate.Add(updatedItem.Key, updatedItem.Value);
+                }
+                foreach (KeyValuePair<string, DateTime> updatedItem in oneTimeUpdate)
                 {
                     DateTime dt = updatedItem.Value;
                     TimeSpan span = now - dt;
