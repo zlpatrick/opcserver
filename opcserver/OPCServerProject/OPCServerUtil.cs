@@ -21,6 +21,7 @@ namespace OPCServerProject
                         if (!handle.Key.StartsWith("DO"))
                         {
                             OPClib.UpdateTag(handle.Value, data.packetDataMap[handle.Key], 192);//, System.Runtime.InteropServices.FILETIME);
+
                         }
                        // LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]: OPC标签更新");
                     }
@@ -66,7 +67,7 @@ namespace OPCServerProject
                 foreach (KeyValuePair<string, LabelItem> pair in items)
                 {
                     deactive();
-                    uint handle = OPClib.CreateTag(equip + "." + pair.Key, getDefaultValue(pair.Value.labelType), 192, true);
+                    uint handle = OPClib.CreateTag(equip + "." + pair.Key, getDefaultValue(pair.Value.labelType), 0, true);
                     handles.Add(pair.Key, handle);
                 }
 

@@ -363,7 +363,7 @@ namespace OPCServerProject
                     DateTime dt = updatedItem.Value;
                     TimeSpan span = now - dt;
                     string moduleID = updatedItem.Key;
-                    if( span.Seconds >= timeout * 60 )
+                    if( (span.Minutes > timeout) || (span.Minutes==timeout && span.Seconds>0) )
                     {
                         if(handles.ContainsKey(moduleID))
                         {
@@ -375,10 +375,13 @@ namespace OPCServerProject
                                 if (lastUpdateData.ContainsKey(moduleID) &&
                                     lastUpdateData[moduleID].packetDataMap.ContainsKey(labelName))
                                 {
-                                    OPClib.UpdateTag(labelHandle, lastUpdateData[moduleID].packetDataMap[labelName], 0);
+                                    OPClib.UpdateTag(labelHandle, lastUpdateData[moduleID].packetDataMap[labelName], 0x18);
                                     //LogUtil.writeLog(LogUtil.getFileName(), "[" + DateTime.Now.ToString() + "]: 信号差");
                                 }
                             }
+
+                            lastUpdate.Remove(moduleID);
+                            lastUpdateData.Remove(moduleID);
                         }
                     }
                 }
